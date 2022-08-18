@@ -6,4 +6,3 @@
   become: yes
   roles:
     - role: docker-greenbone
-      tags: docker_greenbone_install
