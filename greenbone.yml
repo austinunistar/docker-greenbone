@@ -5,5 +5,5 @@
   become_method: sudo
   become: yes
   roles:
-    - role: docker-compose-openvas
-      tags: docker_gvm_install
+    - role: docker-greenbone
+      tags: docker_greenbone_install
