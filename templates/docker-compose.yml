@@ -3,8 +3,8 @@ version: '3.4'
 services:
   gvm:
     image: isaudits/gvm:gvm-21.4
-    hostname: gvm
-    container_name: gvm
+    hostname: greenbone
+    container_name: greenbone
     environment:
       - USERNAME="admin"
       - PASSWORD="1qaz2wsx#EDC"
