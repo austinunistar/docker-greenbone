@@ -1,0 +1,30 @@
+version: '3.4'
+  
+services:
+  gvm:
+    image: isaudits/gvm:gvm-21.4
+    hostname: gvm
+    container_name: gvm
+    environment:
+      - USERNAME="admin"
+      - PASSWORD="1qaz2wsx#EDC"
+      - RELAYHOST="smtp"
+      - SMTPPORT=25
+      - AUTO_SYNC=true
+      - HTTPS=true
+      - TZ="UTC"
+    ports:
+      - "443:9392"
+    env_file:
+      - ./local.env
+    volumes:
+      - ./:/config
+      - ./gvm_data:/usr/local/var/lib
+      - ./gvm_db:/var/lib/postgresql/data
+    tty: true
+
+volumes:
+  gvm_data:
+    name: gvm_data
+  gvm_db:
+    name: gvm_db_

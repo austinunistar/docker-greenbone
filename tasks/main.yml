@@ -1,0 +1,35 @@
+---
+  - name: create docker-compose configuration folder
+    ansible.builtin.file:
+      path: '/var/admin'
+      state: directory
+      owner: 'root'
+      group: 'root'
+      
+  - name: create gvm data folder
+    ansible.builtin.file:
+      path: "{{ item }}"
+      state: directory
+      owner: 'nobody'
+      group: 'nogroup'
+    loop: 
+      - /var/admin/gvm/gvm_data
+      - /var/admin/gvm/gvm_db
+
+  - name: create gvm configuation
+    ansible.builtin.template:
+      src: "{{ item.src }}"
+      dest: "{{ item.dest }}"
+      owner: 'root'
+      group: 'root'
+      mode: '0644'
+      backup: yes
+    loop:
+      - { src: 'local.env.j2', dest: '/var/admin/gvm/local.env' }
+      - { src: 'docker-compose.yml', dest: '/var/admin/gvm/docker-compose.yml' }
+
+  - name: start docker-compose service
+    ansible.builtin.shell: 
+      cmd: 'docker-compose -f docker-compose.yml up -d'
+      chdir: '/var/admin/gvm'
+    tags: docker_compose_start
